@@ -1,0 +1,74 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef vector<int> vi;
+typedef pair<int,int> ii;
+typedef vector<ii> vii;
+typedef vector<vii> vvii;
+typedef long long LL;
+int read_int()
+{
+    char c = gc();
+    while(c<'0' || c>'9') c = gc();
+    int ret = 0;
+    while(c>='0' && c<='9')
+    {
+        ret = 10 * ret + c - 48;
+        c = gc();
+    }
+    return ret;
+}
+//25/12/14
+//shankul khare
+//iterative inorder
+//08:45
+struct node
+{
+    int data;
+    node*left;
+    node*right;
+};
+node*create(int val)
+{
+    node *temp=new node();
+    temp->data=val;
+    temp->left=NULL;
+    temp->right=NULL;
+    return temp;
+}
+void preorder(node *root)
+{
+    stack<node*>st;
+    while(true)
+    {
+        while(!(root==NULL))
+        {
+            st.push(root);
+            root=root->left;
+        }
+        if(st.empty())
+            break;
+        cout<<st.top()->data;
+        root=st.top()->right;
+        st.pop();
+    }
+}
+int main()
+{
+    node* A=create(1);
+    A->left=create(2);
+    A->right=create(3);
+    A->left->left=create(4);
+    A->left->right=create(5);
+    A->right->left=create(6);
+    A->right->right=create(7);
+    preorder(A);
+
+}
