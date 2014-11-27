@@ -1,0 +1,97 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+
+const int MOD=1e9+7;
+
+typedef vector<int> vi;
+typedef pair<int,int> ii;
+typedef vector<ii> vii;
+typedef vector<vii> vvii;
+typedef long long LL;
+
+int read_int()
+{
+    char c = gc();
+    while(c<'0' || c>'9') c = gc();
+    int ret = 0;
+    while(c>='0' && c<='9')
+    {
+        ret = 10 * ret + c - 48;
+        c = gc();
+    }
+    return ret;
+}
+//26/10/14
+//shankul khare
+//find height of a tree nrec;
+//7:20
+struct node
+{
+    int data;
+    node*left;
+    node*right;
+};
+node*NewNode(int data)
+{
+    //node*temp;
+    node *temp=new node();
+    temp->data=data;
+    temp->left=NULL;
+    temp->right=NULL;
+    return temp;
+}
+int height_nrec(node*root)
+{
+    queue<node*>qu;
+    int lv=0;
+    qu.push(root);
+    qu.push(NULL);
+    while(!qu.empty())
+    {
+        root=qu.front();
+        qu.pop();
+        if(root==NULL)
+        {
+            lv++;
+            if(!qu.empty())
+                qu.push(NULL);
+        }
+        else
+        {
+            if(root->left!=NULL)
+            {
+                qu.push(root->left);
+            }
+            if(root->right!=NULL)
+            {
+                qu.push(root->right);
+            }
+        }
+    }
+    return lv;
+}
+int main()
+{
+
+    node *A=NewNode(1);
+    A->left=NewNode(2);
+    A->left->left=NewNode(4);
+    A->left->right=NewNode(5);
+    A->right=NewNode(3);
+    A->right->left=NewNode(6);
+    A->right->right=NewNode(7);
+
+
+    cout<<height_nrec(A);
+    return 0;
+}
