@@ -1,0 +1,93 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+
+const int MOD=1e9+7;
+
+typedef vector<int> vi;
+typedef pair<int,int> ii;
+typedef vector<ii> vii;
+typedef vector<vii> vvii;
+typedef long long LL;
+
+int read_int()
+{
+    char c = gc();
+    while(c<'0' || c>'9') c = gc();
+    int ret = 0;
+    while(c>='0' && c<='9')
+    {
+        ret = 10 * ret + c - 48;
+        c = gc();
+    }
+    return ret;
+}
+//28/10/14
+//shankul khare
+//find height of a tree nrec;
+//20:14
+struct node
+{
+    int data;
+    node*left;
+    node*right;
+};
+node*NewNode(int data)
+{
+    //node*temp;
+    node *temp=new node();
+    temp->data=data;
+    temp->left=NULL;
+    temp->right=NULL;
+    return temp;
+}
+void zig_zag_traversal(node*root)
+{
+    stack<node*>st1,st2;
+    st1.push(root);
+while((!st1.empty())||(!st2.empty()))
+{
+
+ while(!st1.empty())
+    {
+        cout<<st1.top()->data<<" ";
+        if(st1.top()->left!=NULL)
+            st2.push(st1.top()->left);
+        if(st1.top()->right!=NULL)
+            st2.push(st1.top()->right);
+        st1.pop();
+    }
+    while(!st2.empty())
+    {
+
+        cout<<st2.top()->data<<" ";
+        if(st2.top()->right!=NULL)
+            st1.push(st2.top()->right);
+        if(st2.top()->left!=NULL)
+            st1.push(st2.top()->left);
+        st2.pop();
+    }
+}
+}
+int main()
+{
+
+    node *A=NewNode(1);
+    A->left=NewNode(2);
+    A->left->left=NewNode(4);
+    A->left->right=NewNode(5);
+    A->right=NewNode(3);
+    A->right->left=NewNode(6);
+    A->right->right=NewNode(7);
+    zig_zag_traversal(A);
+    return 0;
+}
