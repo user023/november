@@ -1,0 +1,95 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+
+const int MOD=1e9+7;
+
+typedef vector<int> vi;
+typedef pair<int,int> ii;
+typedef vector<ii> vii;
+typedef vector<vii> vvii;
+typedef long long LL;
+
+int read_int()
+{
+    char c = gc();
+    while(c<'0' || c>'9') c = gc();
+    int ret = 0;
+    while(c>='0' && c<='9')
+    {
+        ret = 10 * ret + c - 48;
+        c = gc();
+    }
+    return ret;
+}
+//30/10/14
+//shankul khare
+//special tree 2 or 0 child given pre order find tree
+//10:36
+struct node
+{
+    char data;
+    node*left;
+    node*right;
+};
+node*NewNode(int data)
+{
+    //node*temp;
+    node *temp=new node();
+    temp->data=data;
+    temp->left=NULL;
+    temp->right=NULL;
+    return temp;
+}
+
+node* func(int &i,char arr[])
+{
+    if(arr==NULL)
+        return NULL;
+    node* temp=new node();
+    temp->data=arr[i];
+    if(arr[i]=='L')
+        return temp;
+    i++;
+    temp->left=func(i,arr);
+    i++;
+    temp->right=func(i,arr);
+    return temp;
+
+}
+void print(node*root)
+{
+    if(root==NULL)
+        return;
+        cout<<root->data;
+    if(root->left)
+        print(root->left);
+    if(root->right)
+        print(root->right);
+}
+int main()
+{
+
+    node *A=NewNode(1);
+    A->left=NewNode(2);
+    A->left->left=NewNode(4);
+    A->left->right=NewNode(5);
+    A->right=NewNode(3);
+    A->right->left=NewNode(6);
+    A->right->right=NewNode(7);
+    node *B;
+    char ar[]={'I','L','I','L','L'};
+    int i=0;
+    B=func(i,ar);
+    print(B);
+    return 0;
+}
