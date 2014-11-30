@@ -1,0 +1,103 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+
+const int MOD=1e9+7;
+
+typedef vector<int> vi;
+typedef pair<int,int> ii;
+typedef vector<ii> vii;
+typedef vector<vii> vvii;
+typedef long long LL;
+
+int read_int()
+{
+    char c = gc();
+    while(c<'0' || c>'9') c = gc();
+    int ret = 0;
+    while(c>='0' && c<='9')
+    {
+        ret = 10 * ret + c - 48;
+        c = gc();
+    }
+    return ret;
+}
+//30/10/14
+//shankul khare
+//if 2 trees r isomorfic
+//18:30
+struct node
+{
+    int data;
+    node*left;
+    node*right;
+    node*next;
+};
+node*NewNode(int data)
+{
+    //node*temp;
+    node *temp=new node();
+    temp->data=data;
+    temp->left=NULL;
+    temp->right=NULL;
+    temp->next=NULL;
+    return temp;
+}
+
+bool isIsomorfic(node*root1,node*root2)
+{
+   if(root1==NULL&&root2==NULL)
+        return true;
+   if((root1!=NULL&&root2==NULL)||(root1==NULL&&root2!=NULL))
+    return false;
+   return (isIsomorfic(root1->left,root2->left)&&isIsomorfic(root1->right,root2->right));
+}
+void print(node*root)
+{
+    if(root==NULL)
+        return;
+        node *t=root;
+        while(t!=NULL)
+        {
+            cout<<t->data;
+            t=t->next;
+        }
+    if(root->left)
+        print(root->left);
+    else if(root->right)
+        print(root->right);
+}
+int main()
+{
+
+    node *A=NewNode(1);
+    A->left=NewNode(2);
+    A->left->left=NewNode(4);
+    A->left->right=NewNode(5);
+    A->left->right->left=NewNode(7);
+    A->right=NewNode(3);
+    A->right->left=NewNode(6);
+    A->right->left->left=NewNode(8);
+    node*B=NewNode(1);
+    B->left=NewNode(5);
+    B->left->right=NewNode(2);
+    B->left->right->right=NewNode(4);
+    B->right=NewNode(6);
+    B->right->left=NewNode(8);
+    B->right->left->right=NewNode(7);
+    B->right->right=NewNode(3);
+
+    //next_sibling(A);
+    //print(A);
+    cout<<isIsomorfic(A,B);
+    return 0;
+}
