@@ -1,0 +1,106 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+
+const int MOD=1e9+7;
+
+typedef vector<int> vi;
+typedef pair<int,int> ii;
+typedef vector<ii> vii;
+typedef vector<vii> vvii;
+typedef long long LL;
+
+int read_int()
+{
+    char c = gc();
+    while(c<'0' || c>'9') c = gc();
+    int ret = 0;
+    while(c>='0' && c<='9')
+    {
+        ret = 10 * ret + c - 48;
+        c = gc();
+    }
+    return ret;
+}
+//30/10/14
+//shankul khare
+//n-ary trees
+//array_tree_depth
+//15:50
+struct node
+{
+    int data;
+    node*left;
+    node*right;
+    node*next;
+};
+node*NewNode(int data)
+{
+    //node*temp;
+    node *temp=new node();
+    temp->data=data;
+    temp->left=NULL;
+    temp->right=NULL;
+    temp->next=NULL;
+    return temp;
+}
+
+int array_tree_depth(int arr[],int n)
+{
+    int curr_depth=-1,max_depth=-1,j;
+    for(int i=0;i<n;i++ )
+    {
+        curr_depth=0;
+        j=i;
+        while(arr[j]!=-1)
+        {
+            j=arr[j];
+            curr_depth++;
+        }
+        if(curr_depth>max_depth)
+            max_depth=curr_depth;
+    }
+    return curr_depth;
+}
+void print(node*root)
+{
+    if(root==NULL)
+        return;
+        node *t=root;
+        while(t!=NULL)
+        {
+            cout<<t->data;
+            t=t->next;
+        }
+    if(root->left)
+        print(root->left);
+    else if(root->right)
+        print(root->right);
+}
+int main()
+{
+/*
+    node *A=NewNode(1);
+    A->left=NewNode(2);
+    A->left->left=NewNode(4);
+    A->left->right=NewNode(5);
+    A->right=NewNode(3);
+    A->right->left=NewNode(6);
+    A->right->right=NewNode(7);
+    next_sibling(A);
+    print(A);
+  */
+    int arr[]={-1,0,1,6,6,0,0,2,7}
+    ;int n=9;
+    cout<<array_tree_depth(arr,9);
+    return 0;
+}
