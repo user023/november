@@ -50,6 +50,7 @@ node*NewNode(int data)
     temp->right=NULL;
     return temp;
 }
+//TO chk "WRONG"
 void iterative_postorder(node*root)
 {
     node *q=root;
